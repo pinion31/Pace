@@ -1,0 +1,9 @@
+{% extends "pace/base.html" %}
+{% block content %}
+<h1 class="page-title">Log In With Your Username</h1>
+<form class="flex-parent flex-parent-small-margin" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input class="simple-button" type="submit" value="Log in" />
+</form>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "pace/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<main class="flex-parent flex-parent-large-margin">
+    <a href="{% url 'pace:session_list' %}"><button>View Sessions</button></a>
+    <a href="{% url 'pace:progress' %}"><button> View Progress</button></a>
+</main>
+{% endblock %}

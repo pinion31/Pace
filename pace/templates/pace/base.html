@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <title>Pace</title>
+    <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel='stylesheet' href="{% static 'css/page.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p|Ubuntu:700,700i" rel="stylesheet">
+  <style>
+    * {
+        vertical-align: baseline;
+        font-weight: inherit;
+        font-family: inherit;
+        font-style: inherit;
+        font-size: 100%;
+        border: 0 none;
+        outline: 0;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    h1,h2 {
+        color:black;
+    }
+
+    a {
+        color:white;
+    }
+
+    a:hover {
+      color:white;
+    }
+
+    body {
+      padding: 0px;
+    }
+
+
+    li, dd, blockquote {
+     margin-left: 40px;
+    }
+
+    table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    }
+    </style>
+  </head>
+<body>
+<nav class="navbar">
+  <ul>
+    {% if user.is_authenticated %}
+        <li class="icon" id="icon"><img src="{% static 'media/logo.png' %}" alt="logo" /></li>
+        <li><a href="{% url 'pace:logout' %}"><button class="landing-button">Sign out</button></a></li>
+    {% else %}
+        <li class="icon" id="icon"><img src="{% static 'media/logo.png' %}" alt="logo" /></li>
+        <li><a href="{% url 'pace:login' %}"><button class="landing-button">Sign In</button></a></li>
+        <li><a href="{% url 'pace:sign_up' %}"><button class="landing-button">Create Account</button></a></li>
+    {% endif %}
+  </ul>
+</nav>
+<div></div>
+{% block content %}
+{% endblock %}
+
+</body>
+</html>
