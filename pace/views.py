@@ -1,7 +1,8 @@
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from pace.forms import UserCreateForm, UserLoginForm
+from pace.forms import UserCreateForm, UserLoginForm, AddActivityForm, AddSessionForm
+from pace.models import Session, Activity
 from django.views.generic import (TemplateView, DetailView, FormView, ListView, CreateView, DeleteView, UpdateView)
 
 
@@ -23,7 +24,22 @@ class DashboardView(LoginRequiredMixin,TemplateView):
     template_name='dashboard.html'
 
 class SessionListView(ListView):
-    template_name='session_list.html'c
+    model = Session
+    template_name='session_list.html'
 
 class ProgressView(DetailView):
-    template_name='session_list.html'
+    template_name='progress.html'
+
+class AddActivityView(CreateView):
+    model = Activity
+    template_name='add_activity.html'
+    form_class = AddActivityForm
+
+    def form_valid(self, form):
+        pass
+
+class AddSessionView(CreateView):
+    model = Session
+    template_name='add_session.html'
+    form_class = AddSessionForm
+

@@ -1,16 +1,41 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
+from django.core.urlresolvers import reverse
 from django.contrib import auth
 from django import forms
 
 # Create your models here.
+ACTIVITY_CHOICES = {
+  ('Choose Activity', 'Choose Activity'),
+  ('Running', 'Running'),
+  ('Walking', 'Walking'),
+  ('Weight-lifting', 'Weight-lifting'),
+  ('Push-ups', 'Push-ups'),
+  ('Sit-ups', 'Sit-ups'),
+}
+
+class Activity(models.Model):
+    name= models.CharField(max_length=256, choices=ACTIVITY_CHOICES, default='Choose Activity')
+    activity_type = models.CharField(max_length=256)
+    hours = models.PositiveIntegerField(default=0)
+    minutes = models.PositiveIntegerField(default=0)
+    reps = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("pace:session_list")
+
+class Session(models.Model):
+    session_length = models.PositiveIntegerField(default=0, blank=True, null=True)
+    date = models.DateField()
+    session_activities = models.ForeignKey(Activity, on_delete=models.CASCADE, null=True)
+
+    def get_absolute_url(self):
+        return reverse("pace:session_list")
+
 class PaceUser(auth.models.User, auth.models.PermissionsMixin):
+    sessions = models.ForeignKey(Session, on_delete=models.CASCADE)
     def __str__(self):
         return self.username
 
-class Session(models.Model):
-    session_length = models.PositiveIntegerField()
-
-class Exercise(models.Model):
-    name= models.CharField(max_length=256)
-    duration = models.PositiveIntegerField()
