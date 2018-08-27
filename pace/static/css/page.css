@@ -130,6 +130,28 @@ a:hover {
 
 }
 
+.activity-card {
+  background-color: cadetblue;
+  color:white;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+
+}
+
+.activity-card h4:first-child {
+  display: inline-block;
+}
+
+.activity-card h4:nth-child(2) {
+  float:right;
+  margin-right: 100px;
+}
+
+.activity-title {
+  margin-left: 20px;
+}
+
 .session-title {
   margin-left: 25px;
 }

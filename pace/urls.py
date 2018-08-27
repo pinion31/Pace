@@ -11,7 +11,8 @@ urlpatterns = [
     url(r'^dashboard/', views.DashboardView.as_view(), name='dashboard'),
     url(r'^sign_up/', views.SignUpView.as_view(), name='sign_up'),
     url(r'^session_list/', views.SessionListView.as_view(), name='session_list'),
+    url(r'^activity_list/', views.ActivityListView.as_view(), name='activity_list'),
     url(r'^progress/', views.ProgressView.as_view(), name='progress'),
-    url(r'^add_activity', views.AddActivityView.as_view(), name='add_activity'),
+    url(r'^add_activity/(?P<pk>\d+)/$', views.AddActivityView.as_view(), name='add_activity'),
     url(r'^add_session', views.AddSessionView.as_view(), name='add_session'),
 ]

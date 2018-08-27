@@ -1,0 +1,8 @@
+{% block content %}
+  {% for activity in activity_list %}
+    <div class="activity-card">
+    <h4>{{activity.name}}</h4>
+    <h4>Duration: {{activity.hours}}:{{activity.minutes}}</h4>
+    </div>
+  {% endfor %}
+{% endblock %}

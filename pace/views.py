@@ -30,6 +30,13 @@ class SessionListView(ListView):
     def get_queryset(self):
         return Session.objects.filter(user=self.request.user.id)
 
+class ActivityListView(ListView):
+    model = Activity
+    template_name='activity_list.html'
+
+   # def get_queryset(self):
+    #    return Activity.objects.filter(session=self.session.id)
+
 class ProgressView(DetailView):
     template_name='progress.html'
 
@@ -37,6 +44,12 @@ class AddActivityView(CreateView):
     model = Activity
     template_name='add_activity.html'
     form_class = AddActivityForm
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.session = Session.objects.get(id=self.kwargs['pk'])
+        self.object.save()
+        return super().form_valid(form)
 
 class AddSessionView(CreateView):
     model = Session
