@@ -13,12 +13,27 @@ ACTIVITY_CHOICES = {
   ('Sit-ups', 'Sit-ups'),
 }
 
+User = auth.get_user_model()
+
+class PaceUser(auth.models.User, auth.models.PermissionsMixin):
+    def __str__(self):
+        return self.username
+
+class Session(models.Model):
+    session_length = models.PositiveIntegerField(default=0, blank=True, null=True)
+    date = models.DateField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse("pace:session_list")
+
 class Activity(models.Model):
     name= models.CharField(max_length=256, choices=ACTIVITY_CHOICES, default='Choose Activity')
     activity_type = models.CharField(max_length=256)
     hours = models.PositiveIntegerField(default=0)
     minutes = models.PositiveIntegerField(default=0)
     reps = models.PositiveIntegerField(default=0)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
@@ -26,16 +41,5 @@ class Activity(models.Model):
     def get_absolute_url(self):
         return reverse("pace:session_list")
 
-class Session(models.Model):
-    session_length = models.PositiveIntegerField(default=0, blank=True, null=True)
-    date = models.DateField()
-    session_activities = models.ForeignKey(Activity, on_delete=models.CASCADE, null=True)
 
-    def get_absolute_url(self):
-        return reverse("pace:session_list")
-
-class PaceUser(auth.models.User, auth.models.PermissionsMixin):
-    sessions = models.ForeignKey(Session, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.username
 

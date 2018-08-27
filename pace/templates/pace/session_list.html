@@ -4,7 +4,7 @@
 {% for session in session_list %}
 <div class="session-card">
   <h2>Session for: {{ session.date }}</h2>
-  <a href="{% url 'pace:add_activity' pk=session.pk %}"><button class="add-activity-button">+ Add Activity</button></a>
+  <a href="{% url 'pace:add_activity' %}"><button class="add-activity-button">+ Add Activity</button></a>
 </div>
 {% endfor %}
   <a href="{% url 'pace:add_session' %}"><button class="add-session-button">+ Add Session</button></a>
